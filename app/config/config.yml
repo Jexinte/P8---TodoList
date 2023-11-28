@@ -59,3 +59,6 @@ doctrine:
         naming_strategy: custom_doctrine_orm_naming_strategy_underscore
         auto_mapping: true
 
+sensio_framework_extra:
+    router:
+        annotations: false

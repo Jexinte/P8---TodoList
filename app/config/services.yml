@@ -4,10 +4,19 @@ parameters:
 #    parameter_name: value
 
 services:
-  Psr\Log\LoggerInterface: '@logger'
+    _defaults:
+      autowire: true
+      autoconfigure: true
+      public: false
 
-  custom_doctrine_orm_naming_strategy_underscore:
+    Psr\Log\LoggerInterface: '@logger'
+
+    custom_doctrine_orm_naming_strategy_underscore:
       class: Doctrine\ORM\Mapping\UnderscoreNamingStrategy
       arguments:
         - 0
         - true
+
+    AppBundle\:
+      resource: '../../src/AppBundle/*'
+      exclude: '../../src/AppBundle/{Entity,Repository}'

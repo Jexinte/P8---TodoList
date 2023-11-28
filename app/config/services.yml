@@ -5,6 +5,9 @@ parameters:
 
 services:
   Psr\Log\LoggerInterface: '@logger'
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+  custom_doctrine_orm_naming_strategy_underscore:
+      class: Doctrine\ORM\Mapping\UnderscoreNamingStrategy
+      arguments:
+        - 0
+        - true

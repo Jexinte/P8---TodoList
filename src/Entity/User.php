@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @UniqueEntity("email")
  */
-class User implements UserInterface
+class User implements UserInterface,PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -59,10 +60,7 @@ class User implements UserInterface
         return null;
     }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
+
 
     public function setPassword($password)
     {
@@ -86,5 +84,15 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getUserIdentifier(): string
+    {
+     return  $this->username;
+    }
+
+    public function getPassword() : string
+    {
+        return $this->password;
     }
 }

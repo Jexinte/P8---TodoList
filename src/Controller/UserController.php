@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function create(Request $request,UserPasswordEncoderInterface  $passwordEncoder)
+    public function create(Request $request,UserPasswordHasherInterface $passwordHasher)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -32,7 +33,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = $passwordEncoder->encodePassword($user,$user->getPassword());
+            $password = $passwordHasher->hashPassword($user,$user->getPassword());
             $user->setPassword($password);
             $em->persist($user);
             $em->flush();
@@ -48,14 +49,14 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function edit(User $user, Request $request,UserPasswordEncoderInterface $passwordEncoder)
+    public function edit(User $user, Request $request,UserPasswordHasherInterface  $passwordHasher)
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user,$user->getPassword());
+            $password = $passwordHasher->hashPassword($user,$user->getPassword());
             $user->setPassword($password);
 
             $this->getDoctrine()->getManager()->flush();

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,15 +15,15 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function list(): Response
+    public function list(ManagerRegistry  $managerRegistry): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]);
+        return $this->render('task/list.html.twig', ['tasks' => $managerRegistry->getRepository(Task::class)->findAll()]);
     }
 
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function create(Request $request)
+    public function create(Request $request,ManagerRegistry  $managerRegistry)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -30,7 +31,7 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
 
             $em->persist($task);
             $em->flush();
@@ -46,14 +47,14 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function edit(Task $task, Request $request)
+    public function edit(Task $task, Request $request,ManagerRegistry  $managerRegistry)
     {
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
@@ -69,10 +70,10 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggleTask(Task $task): RedirectResponse
+    public function toggleTask(Task $task,ManagerRegistry  $managerRegistry): RedirectResponse
     {
         $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        $managerRegistry->getManager()->flush();
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
@@ -82,9 +83,9 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTask(Task $task): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function deleteTask(Task $task,ManagerRegistry  $managerRegistry): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
         $em->remove($task);
         $em->flush();
 

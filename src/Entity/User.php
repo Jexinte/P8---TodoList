@@ -45,7 +45,10 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getUsername()
+    /**
+     * @return string
+     */
+    public function getUsername():string
     {
         return $this->username;
     }
@@ -55,7 +58,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         $this->username = $username;
     }
 
-    public function getSalt()
+    public function getSalt():?string
     {
         return null;
     }
@@ -77,7 +80,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
+    public function getRoles():array
     {
         return ['ROLE_USER'];
     }

@@ -20,19 +20,18 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "monolog/monolog": "^1.27",
         "symfony/flex": "^1.21",
-        "symfony/security-bundle": "6.3.*",
-        "symfony/asset": "6.3.*",
-        "symfony/form": "6.3.*",
-        "symfony/validator": "6.3.*",
-        "symfony/http-foundation": "6.3.*",
-        "symfony/config": "6.3.*",
-        "symfony/property-access": "6.3.*",
+        "symfony/security-bundle": "6.4.*",
+        "symfony/asset": "6.4.*",
+        "symfony/form": "6.4.*",
+        "symfony/validator": "6.4.*",
+        "symfony/http-foundation": "6.4.*",
+        "symfony/config": "6.4.*",
+        "symfony/property-access": "6.4.*",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/common": "^3.4",
-        "doctrine/annotations": "^1.11",
-        "symfony/password-hasher": "6.3.*",
-        "symfony/cache": "6.3.*"
+        "symfony/password-hasher": "6.4.*",
+        "symfony/cache": "6.4.*"
     },
     "conflict" : {
     "symfony/symfony" : "*"
@@ -40,9 +39,9 @@
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
         "rector/rector": "^0.18.11",
-        "symfony/dotenv": "6.3.*",
-        "symfony/stopwatch": "6.3.*",
-        "symfony/web-profiler-bundle": "6.3.*"
+        "symfony/dotenv": "6.4.*",
+        "symfony/stopwatch": "6.4.*",
+        "symfony/web-profiler-bundle": "6.4.*"
     },
     "scripts": {
         "symfony-scripts": [
@@ -61,7 +60,7 @@
     },
     "extra": {
         "symfony" : {
-            "require" : "6.3.*"
+            "require" : "6.4.*"
         },
         "config-dir": "config/",
         "bin-dir": "bin/",

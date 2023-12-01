@@ -12,17 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 class TaskController extends AbstractController
 {
-    /**
-     * @Route("/tasks", name="task_list")
-     */
+    #[Route(path: '/tasks', name: 'task_list')]
     public function list(ManagerRegistry  $managerRegistry): Response
     {
         return $this->render('task/list.html.twig', ['tasks' => $managerRegistry->getRepository(Task::class)->findAll()]);
     }
 
-    /**
-     * @Route("/tasks/create", name="task_create")
-     */
+    #[Route(path: '/tasks/create', name: 'task_create')]
     public function create(Request $request,ManagerRegistry  $managerRegistry)
     {
         $task = new Task();
@@ -41,12 +37,10 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('task/create.html.twig', ['form' => $form]);
     }
 
-    /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
-     */
+    #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
     public function edit(Task $task, Request $request,ManagerRegistry  $managerRegistry)
     {
         $form = $this->createForm(TaskType::class, $task);
@@ -62,14 +56,12 @@ class TaskController extends AbstractController
         }
 
         return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'task' => $task,
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
-     */
+    #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
     public function toggleTask(Task $task,ManagerRegistry  $managerRegistry): RedirectResponse
     {
         $task->toggle(!$task->isDone());
@@ -80,9 +72,7 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
-     */
+    #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTask(Task $task,ManagerRegistry  $managerRegistry): RedirectResponse
     {
         $em = $managerRegistry->getManager();

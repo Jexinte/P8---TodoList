@@ -13,17 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/users", name="user_list")
-     */
+    #[Route(path: '/users', name: 'user_list')]
     public function list(ManagerRegistry $managerRegistry): Response
     {
         return $this->render('user/list.html.twig', ['users' => $managerRegistry->getRepository(User::class)->findAll()]);
     }
 
-    /**
-     * @Route("/users/create", name="user_create")
-     */
+    #[Route(path: '/users/create', name: 'user_create')]
     public function create(Request $request,UserPasswordHasherInterface $passwordHasher, ManagerRegistry  $managerRegistry)
     {
         $user = new User();
@@ -43,12 +39,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/create.html.twig', ['form' => $form]);
     }
 
-    /**
-     * @Route("/users/{id}/edit", name="user_edit")
-     */
+    #[Route(path: '/users/{id}/edit', name: 'user_edit')]
     public function edit(User $user, Request $request,UserPasswordHasherInterface  $passwordHasher, ManagerRegistry  $managerRegistry)
     {
         $form = $this->createForm(UserType::class, $user);
@@ -66,6 +60,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render('user/edit.html.twig', ['form' => $form, 'user' => $user]);
     }
 }

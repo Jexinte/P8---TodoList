@@ -19,7 +19,7 @@ class TaskController extends AbstractController
     }
 
     #[Route(path: '/tasks/create', name: 'task_create')]
-    public function create(Request $request,ManagerRegistry  $managerRegistry)
+    public function create(Request $request,ManagerRegistry  $managerRegistry): RedirectResponse|Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -41,7 +41,7 @@ class TaskController extends AbstractController
     }
 
     #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
-    public function edit(Task $task, Request $request,ManagerRegistry  $managerRegistry)
+    public function edit(Task $task, Request $request,ManagerRegistry  $managerRegistry): RedirectResponse|Response
     {
         $form = $this->createForm(TaskType::class, $task);
 

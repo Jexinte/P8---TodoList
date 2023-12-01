@@ -17,23 +17,22 @@
         "doctrine/orm": "^2.8",
         "symfony/monolog-bundle": "^3.1",
         "symfony/polyfill-apcu": "^1.0",
-        "sensio/framework-extra-bundle": "^6.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "monolog/monolog": "^1.27",
         "symfony/flex": "^1.21",
-        "symfony/security-bundle": "6.2.*",
-        "symfony/asset": "6.2.*",
-        "symfony/form": "6.2.*",
-        "symfony/validator": "6.2.*",
-        "symfony/http-foundation": "6.2.*",
-        "symfony/config": "6.2.*",
-        "symfony/property-access": "6.2.*",
+        "symfony/security-bundle": "6.3.*",
+        "symfony/asset": "6.3.*",
+        "symfony/form": "6.3.*",
+        "symfony/validator": "6.3.*",
+        "symfony/http-foundation": "6.3.*",
+        "symfony/config": "6.3.*",
+        "symfony/property-access": "6.3.*",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/common": "^3.4",
         "doctrine/annotations": "^1.11",
-        "symfony/password-hasher": "6.2.*",
-        "symfony/cache": "6.2.*"
+        "symfony/password-hasher": "6.3.*",
+        "symfony/cache": "6.3.*"
     },
     "conflict" : {
     "symfony/symfony" : "*"
@@ -41,9 +40,9 @@
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
         "rector/rector": "^0.18.11",
-        "symfony/dotenv": "6.2.*",
-        "symfony/stopwatch": "6.2.*",
-        "symfony/web-profiler-bundle": "6.2.*"
+        "symfony/dotenv": "6.3.*",
+        "symfony/stopwatch": "6.3.*",
+        "symfony/web-profiler-bundle": "6.3.*"
     },
     "scripts": {
         "symfony-scripts": [
@@ -62,7 +61,7 @@
     },
     "extra": {
         "symfony" : {
-            "require" : "6.2.*"
+            "require" : "6.3.*"
         },
         "config-dir": "config/",
         "bin-dir": "bin/",

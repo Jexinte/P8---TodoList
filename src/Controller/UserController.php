@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController extends AbstractController
 {
@@ -20,7 +21,7 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/users/create', name: 'user_create')]
-    public function create(Request $request,UserPasswordHasherInterface $passwordHasher, ManagerRegistry  $managerRegistry)
+    public function create(Request $request,UserPasswordHasherInterface $passwordHasher, ManagerRegistry  $managerRegistry): RedirectResponse|Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -43,7 +44,7 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/users/{id}/edit', name: 'user_edit')]
-    public function edit(User $user, Request $request,UserPasswordHasherInterface  $passwordHasher, ManagerRegistry  $managerRegistry)
+    public function edit(User $user, Request $request,UserPasswordHasherInterface  $passwordHasher, ManagerRegistry  $managerRegistry): RedirectResponse|Response
     {
         $form = $this->createForm(UserType::class, $user);
 

@@ -53,7 +53,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
@@ -65,7 +65,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
 
 
 
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
@@ -75,7 +75,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -85,7 +85,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         return ['ROLE_USER'];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials():void
     {
     }
 

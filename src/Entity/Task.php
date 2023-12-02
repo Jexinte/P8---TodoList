@@ -8,31 +8,38 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Task
 {
+
+    /**
+     * @var int
+     */
     #[ORM\Column(type: 'integer')]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'datetime')]
-    private $createdAt;
+    private \DateTime $createdAt;
 
     #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
     #[ORM\Column(type: 'string')]
-    private $title;
+    private string $title;
 
     #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
     #[ORM\Column(type: 'text')]
-    private $content;
+    private string $content;
 
     #[ORM\Column(type: 'boolean')]
-    private $isDone = false;
+    private bool $isDone = false;
+
+    #[ORM\OneToOne(mappedBy: 'task', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
 
     public function __construct()
     {
         $this->createdAt = new \Datetime();
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -42,27 +49,27 @@ class Task
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle($title): void
+    public function setTitle( string $title): void
     {
         $this->title = $title;
     }
 
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent($content): void
+    public function setContent( string $content): void
     {
         $this->content = $content;
     }
@@ -72,8 +79,30 @@ class Task
         return $this->isDone;
     }
 
-    public function toggle($flag): void
+    public function toggle( bool $flag): void
     {
         $this->isDone = $flag;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setTask(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getTask() !== $this) {
+            $user->setTask($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
     }
 }

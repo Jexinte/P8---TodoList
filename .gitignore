@@ -33,3 +33,5 @@ phpstan.neon
 /public/bundles/
 /var/
 ###< symfony/framework-bundle ###
+
+grumphp.yml

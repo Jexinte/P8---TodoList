@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ORM\Table]
 #[ORM\Entity]
 class Task
@@ -31,8 +32,10 @@ class Task
     #[ORM\Column(type: 'boolean')]
     private bool $isDone = false;
 
-    #[ORM\OneToOne(mappedBy: 'task', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
 
     public function __construct()
     {
@@ -59,7 +62,7 @@ class Task
         return $this->title;
     }
 
-    public function setTitle( string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -69,7 +72,7 @@ class Task
         return $this->content;
     }
 
-    public function setContent( string $content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -79,7 +82,7 @@ class Task
         return $this->isDone;
     }
 
-    public function toggle( bool $flag): void
+    public function toggle(bool $flag): void
     {
         $this->isDone = $flag;
     }
@@ -91,18 +94,10 @@ class Task
 
     public function setUser(?User $user): static
     {
-        // unset the owning side of the relation if necessary
-        if ($user === null && $this->user !== null) {
-            $this->user->setTask(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($user !== null && $user->getTask() !== $this) {
-            $user->setTask($this);
-        }
-
         $this->user = $user;
 
         return $this;
     }
+
+
 }

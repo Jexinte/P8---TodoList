@@ -4,60 +4,81 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+            "App\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "App\\Tests\\": "tests/"
         }
     },
     "require": {
-        "php": ">=5.5.9",
-        "symfony/symfony": "3.1.*",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/monolog-bundle": "^2.8",
+        "php": ">=8.2.12",
+        "doctrine/orm": "^2.8",
+        "symfony/monolog-bundle": "^3.1",
         "symfony/polyfill-apcu": "^1.0",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0"
+        "incenteev/composer-parameter-handler": "^2.0",
+        "monolog/monolog": "^2.0",
+        "symfony/flex": "^1.21",
+        "symfony/security-bundle": "6.4.*",
+        "symfony/asset": "6.4.*",
+        "symfony/form": "6.4.*",
+        "symfony/validator": "6.4.*",
+        "symfony/http-foundation": "6.4.*",
+        "symfony/config": "6.4.*",
+        "symfony/property-access": "6.4.*",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/doctrine-bundle": "^2.3",
+        "doctrine/common": "^3.4",
+        "symfony/password-hasher": "6.4.*",
+        "symfony/cache": "6.4.*"
     },
+    "conflict" : {
+    "symfony/symfony" : "*"
+},
     "require-dev": {
-        "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "rector/rector": "^0.18.11",
+        "symfony/dotenv": "6.4.*",
+        "symfony/stopwatch": "6.4.*",
+        "symfony/web-profiler-bundle": "6.4.*",
+        "symfony/maker-bundle": "^1.52",
+        "phpro/grumphp": "^2.3"
     },
     "scripts": {
+        "analyse" : "vendor/bin/phpstan analyse src",
         "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+
         ],
         "post-install-cmd": [
             "@symfony-scripts"
         ],
         "post-update-cmd": [
             "@symfony-scripts"
-        ]
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        }
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
+        "symfony" : {
+            "require" : "6.4.*"
+        },
+        "config-dir": "config/",
+        "bin-dir": "bin/",
+        "var-dir": "var/",
+        "public-dir": "public/",
+        "tests-dir": "tests/",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yaml"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "phpro/grumphp": true
         }
     }
 }

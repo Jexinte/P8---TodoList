@@ -31,7 +31,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[Assert\NotBlank(message: 'Vous devez saisir une adresse email.')]
-    #[Assert\Email(message: "Le format de l'adresse n'est pas correcte.")]
+    #[Assert\Regex(
+        pattern: '/^[a-z0-9.-]+@[a-z0-9.-]{2,}\.[a-z]{2,4}$/',
+        message: 'Le format de l\'adresse email n\'est pas correcte !',
+        match: true
+    )]
     #[ORM\Column(type: 'string', length: 60, unique: true)]
     private string $email;
 

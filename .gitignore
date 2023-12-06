@@ -35,3 +35,8 @@ phpstan.neon
 ###< symfony/framework-bundle ###
 
 grumphp.yml
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

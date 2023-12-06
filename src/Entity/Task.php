@@ -25,6 +25,7 @@ class Task
     #[ORM\Column(type: 'string')]
     private string $title;
 
+
     #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
     #[ORM\Column(type: 'text')]
     private string $content;
@@ -33,7 +34,7 @@ class Task
     private bool $isDone = false;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
 

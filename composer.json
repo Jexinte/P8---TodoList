@@ -14,7 +14,6 @@
     },
     "require": {
         "php": ">=8.2.12",
-        "doctrine/orm": "^2.8",
         "symfony/monolog-bundle": "^3.1",
         "symfony/polyfill-apcu": "^1.0",
         "incenteev/composer-parameter-handler": "^2.0",
@@ -27,11 +26,12 @@
         "symfony/http-foundation": "6.4.*",
         "symfony/config": "6.4.*",
         "symfony/property-access": "6.4.*",
-        "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/doctrine-bundle": "^2.3",
         "doctrine/common": "^3.4",
         "symfony/password-hasher": "6.4.*",
-        "symfony/cache": "6.4.*"
+        "symfony/cache": "6.4.*",
+        "doctrine/doctrine-bundle": "^2.11",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^2.17"
     },
     "conflict" : {
     "symfony/symfony" : "*"
@@ -47,9 +47,7 @@
     },
     "scripts": {
         "analyse" : "vendor/bin/phpstan analyse src",
-        "symfony-scripts": [
 
-        ],
         "post-install-cmd": [
             "@symfony-scripts"
         ],

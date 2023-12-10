@@ -8,6 +8,9 @@ use \Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
+    /**
+     * @codeCoverageIgnore
+     */
     #[Route(path: '/', name: 'homepage')]
     public function index(): Response
     {

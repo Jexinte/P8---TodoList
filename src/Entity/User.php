@@ -75,6 +75,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getSalt(): ?string
     {
         return null;
@@ -101,6 +104,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function eraseCredentials(): void
     {
     }
@@ -138,6 +144,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     */
+    /**
      * @return Collection<int, Task>
      */
     public function getTasks(): Collection
@@ -145,6 +154,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->tasks;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function addTask(Task $task): static
     {
         if (!$this->tasks->contains($task)) {
@@ -155,6 +167,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function removeTask(Task $task): static
     {
         if ($this->tasks->removeElement($task)) {

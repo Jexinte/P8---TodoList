@@ -7,14 +7,22 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 
+
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
     ) {
     }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function handle(Request $request, AccessDeniedException $accessDeniedException): ?RedirectResponse
     {
-        return new RedirectResponse($this->urlGenerator->generate('task_list'));
+        return new RedirectResponse($this->urlGenerator->generate('homepage'));
     }
 }

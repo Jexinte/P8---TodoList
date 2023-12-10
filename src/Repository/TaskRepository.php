@@ -21,14 +21,18 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class TaskRepository extends ServiceEntityRepository
 {
-
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Task::class);
     }
 
 
-
+    /**
+     * @codeCoverageIgnore
+     */
     public function getEntityManager(): EntityManagerInterface
     {
         return parent::getEntityManager();

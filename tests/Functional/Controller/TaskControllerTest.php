@@ -87,7 +87,7 @@ class TaskControllerTest extends WebTestCase
 
         foreach ($tasks as $task) {
             preg_match_all('/créé\spar\s(.*?)\n/', $task->nodeValue, $matches);
-            $anonymousTasksOnClient = array_filter(next($matches), fn($value) => $value == "Anonymous");
+            $anonymousTasksOnClient = array_filter(next($matches), fn($value) => $value == "Anonyme");
         }
         $this->assertCount(count($anonymousTasksOnClient), $anonymousTasksOnDb);
 

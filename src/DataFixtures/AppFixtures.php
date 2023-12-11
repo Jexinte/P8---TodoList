@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
          $faker = Faker\Factory::create();
-         for ($i = 0 ; $i < 10; $i++)
+         for ($i = 0 ; $i < 40; $i++)
          {
              $user = new User();
              $user->setUsername("User".$i+1);
@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
              $manager->persist($user);
          }
 
-         for ($i = 0 ; $i < 20; $i++)
+         for ($i = 0 ; $i < 40; $i++)
          {
              $number = rand(1,20);
 

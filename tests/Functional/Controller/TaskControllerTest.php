@@ -2,6 +2,7 @@
 
 namespace App\Tests\Functional\Controller;
 
+use App\Entity\User;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -25,14 +26,22 @@ class TaskControllerTest extends WebTestCase
         $this->browser = static::createClient();
     }
 
+    public function loginUser(string $username):void
+    {
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $this->browser->loginUser($userRepository->findOneBy(['username' => $username]));
+    }
+
+    public function getUser(string $username): User
+    {
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        return $userRepository->findOneBy(['username' => $username]);
+    }
     public function testCreateTask(): void
     {
         $this->browser->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
-        $user = $userRepository->findOneBy(['username' => 'User1']);
-
-        $this->browser->loginUser($user);
+        $this->loginUser('User1');
 
         $this->browser->request('GET', '/');
 
@@ -60,14 +69,12 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
-        $user = $userRepository->findOneBy(['username' => 'User1']);
-
         $taskRepository = static::getContainer()->get(TaskRepository::class);
+
         $anonymousTasksOnDb = $taskRepository->findBy(['user' => null]);
         $anonymousTasksOnClient = [];
 
-        $this->browser->loginUser($user);
+        $this->loginUser('User6');
 
         $this->browser->request('GET', '/');
 
@@ -91,10 +98,7 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
-        $user = $userRepository->findOneBy(['username' => 'User1']);
-        $this->browser->loginUser($user);
+        $this->loginUser('User5');
 
         $this->browser->request('GET', '/');
 
@@ -106,8 +110,8 @@ class TaskControllerTest extends WebTestCase
 
         $form = $this->browser->getCrawler()->selectButton('Modifier')->form();
         $form->setValues([
-            'task[title]' => 'Tâche modifiée',
-            'task[content]' => 'Contenu modifié',
+            'task[title]' => 'Tâche modifiée avec isolation de la connexion',
+            'task[content]' => 'Contenu modifié avec isolation de l\'accès à l\'utilisateur'
         ]);
 
         $this->browser->submit($form);
@@ -122,14 +126,11 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
-        $user = $userRepository->findOneBy(['username' => 'User4']);
+        $this->loginUser('User1');
 
-        $this->browser->loginUser($user);
-
-        $userTasks = $taskRepository->findBy(['user' => $user]);
+        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User1')]);
         $task = current($userTasks);
 
         $this->browser->request('GET', '/tasks');
@@ -146,16 +147,13 @@ class TaskControllerTest extends WebTestCase
     {
         $this->browser->followRedirects();
 
-        $userRepository = static::getContainer()->get(UserRepository::class);
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
 
-        $user = $userRepository->findOneBy(['username' => 'User4']);
         $tasks = $taskRepository->findAll();
         $task = end($tasks);
 
-        $this->browser->loginUser($user);
-
+        $this->loginUser('User9');
         $this->browser->request('GET', '/tasks');
 
         $this->browser->request('DELETE', "/tasks/" . $task->getId() . "/delete");

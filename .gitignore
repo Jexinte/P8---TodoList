@@ -36,5 +36,4 @@ phpstan.neon
 
 grumphp.yml
 
-
 /public/test-coverage

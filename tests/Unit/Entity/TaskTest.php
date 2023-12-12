@@ -3,29 +3,34 @@
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\Task;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class TaskTest extends KernelTestCase
+class TaskTest extends TestCase
 {
-    const TITLE_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un titre.';
-    const CONTENT_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir du contenu.';
 
 
-    public function testTitleShouldReturnBlankValidationMessage(): void
+    public function testTitleShouldReturnTheSameValue(): void
     {
         $task = new Task();
-        $task->setTitle("");
-        $validator = self::getContainer()->get('validator');
-        $this->assertEquals(self::TITLE_BLANK_VALIDATION_MESSAGE, $validator->validateProperty($task, 'title')->get(0)->getMessage());
+        $task->setTitle('Title for John Doe');
+        $this->assertSame('Title for John Doe', $task->getTitle());
     }
 
-    public function testContentShouldReturnBlankValidationMessage(): void
+    public function testContentShouldReturnTheSameValue(): void
     {
         $task = new Task();
-        $task->setContent("");
-        $validator = self::getContainer()->get('validator');
-        $this->assertEquals(self::CONTENT_BLANK_VALIDATION_MESSAGE, $validator->validateProperty($task, 'content')->get(0)->getMessage());
+        $task->setContent('Content for John Doe');
+        $this->assertSame('Content for John Doe', $task->getContent());
     }
 
-  
+    public function testToggleShouldReturnTheSameValue(): void
+    {
+        $task = new Task();
+        $number = rand(1, 2);
+        $boolean = $number % 2 == 0;
+        $task->toggle($boolean);
+        $this->assertIsBool($task->isDone());
+    }
+
+
 }

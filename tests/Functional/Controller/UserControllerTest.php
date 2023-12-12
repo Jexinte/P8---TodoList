@@ -48,10 +48,10 @@ class UserControllerTest extends WebTestCase
 
         $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
         $form->setValues([
-            'user[username]' => 'Testa',
+            'user[username]' => 'Testu',
             'user[password][first]' => '0000',
             'user[password][second]' => '0000',
-            'user[email]' => 'fx@gmail.com',
+            'user[email]' => 'testua@gmail.com',
             'user[userGroup]' => $role
         ]);
         $this->browser->submit($form);

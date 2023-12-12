@@ -15,32 +15,37 @@ class UserTest extends TestCase
 
     public function testUsernameShouldReturnSameValue(): void
     {
-        $this->getUser()->setUsername('Test');
-        $this->assertSame('Test', $this->getUser()->getUsername());
+        $user = new User();
+        $user->setUsername('Test');
+        $this->assertSame('Test', $user->getUsername());
     }
 
     public function testPasswordShouldReturnSameValue(): void
     {
-        $this->getUser()->setPassword('0000');
-        $this->assertSame('0000', $this->getUser()->getPassword());
+        $user = new User();
+        $user->setPassword('0000');
+        $this->assertSame('0000', $user->getPassword());
     }
 
     public function testEmailShouldReturnSameValue(): void
     {
-        $this->getUser()->setEmail('johndoe@gmail.com');
-        $this->assertSame('johndoe@gmail.com', $this->getUser()->getEmail());
+        $user = new User();
+        $user->setEmail('johndoe@gmail.com');
+        $this->assertSame('johndoe@gmail.com', $user->getEmail());
     }
 
     public function testUserGroupShouldReturnSameValue(): void
     {
-        $this->getUser()->setUserGroup("ROLE_USER");
-        $this->assertSame("ROLE_USER", $this->getUser()->getUserGroup());
+        $user = new User();
+        $user->setUserGroup("ROLE_USER");
+        $this->assertSame("ROLE_USER", $user->getUserGroup());
     }
 
 
     public function testRolesShouldBeEmpty(): void
     {
-        $this->assertEmpty($this->getUser()->getRoles());
+        $user = new User();
+        $this->assertEmpty($user->getRoles());
     }
 
 }

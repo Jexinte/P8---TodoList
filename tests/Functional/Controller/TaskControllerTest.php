@@ -47,7 +47,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
 
-
         $this->browser->request('POST', '/tasks/create');
 
         $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
@@ -78,7 +77,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->request('GET', '/');
 
-        $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
 
         $this->browser->request('GET', '/tasks');
 
@@ -128,9 +126,9 @@ class TaskControllerTest extends WebTestCase
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
-        $this->loginUser('User1');
+        $this->loginUser('User22');
 
-        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User1')]);
+        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User22')]);
         $task = current($userTasks);
 
         $this->browser->request('GET', '/tasks');

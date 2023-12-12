@@ -3,7 +3,6 @@
 namespace App\Tests\Functional\Controller;
 
 use App\Entity\User;
-use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -14,6 +13,10 @@ class UserControllerTest extends WebTestCase
     const WELCOME_MESSAGE_HOMEPAGE = 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !';
 
     const USERS_PAGE_MAIN_TITLE = "Liste des utilisateurs";
+    const USER_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un nom d\'utilisateur.';
+    const EMAIL_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir une adresse email.';
+    const EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE = 'Le format de l\'adresse email n\'est pas correcte !';
+
 
     private KernelBrowser $browser;
 
@@ -54,6 +57,50 @@ class UserControllerTest extends WebTestCase
         $this->browser->submit($form);
 
         $this->assertResponseIsSuccessful();
+    }
+
+    public function testUsernameShouldReturnBlankValidationMessage(): void
+    {
+
+        $this->browser->followRedirects();
+
+        $this->browser->request('POST', '/users/create');
+
+        $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
+        $form->setValues([
+            'user[username]' => '',
+        ]);
+        $this->browser->submit($form);
+
+        $this->assertEquals(self::USER_BLANK_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->text());
+    }
+    public function testEmailShouldReturnBlankValidationMessage(): void
+    {
+        $this->browser->followRedirects();
+
+        $this->browser->request('POST', '/users/create');
+
+        $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
+        $form->setValues([
+            'user[email]' => '',
+        ]);
+        $this->browser->submit($form);
+
+        $this->assertEquals(self::EMAIL_BLANK_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
+    }
+    public function testEmailShouldReturnInvalidFormatValidationMessage(): void
+    {
+        $this->browser->followRedirects();
+
+        $this->browser->request('POST', '/users/create');
+
+        $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
+        $form->setValues([
+            'user[email]' => 'John@gmail.com',
+        ]);
+        $this->browser->submit($form);
+
+        $this->assertEquals(self::EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
     }
 
     public function testUpdateOfUserRole(): void

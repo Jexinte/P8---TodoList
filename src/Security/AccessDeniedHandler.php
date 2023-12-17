@@ -23,7 +23,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     /**
      * Summary of __construct
      *
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param UrlGeneratorInterface $urlGenerator Object
      */
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
@@ -34,8 +34,8 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     /**
      * Summary of handle
      *
-     * @param Request $request
-     * @param AccessDeniedException $accessDeniedException
+     * @param Request $request Object
+     * @param AccessDeniedException $accessDeniedException Object
      *
      * @return RedirectResponse|null
      */

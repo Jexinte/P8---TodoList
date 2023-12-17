@@ -93,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of setUsername
      *
-     * @param string $username
+     * @param string $username string
      *
      * @return void
      */
@@ -117,7 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of setPassword
      *
-     * @param string $password
+     * @param string $password string
      *
      * @return void
      */
@@ -139,7 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of setEmail
      *
-     * @param string $email
+     * @param string $email string
      *
      * @return void
      */
@@ -192,7 +192,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of setRoles
      *
-     * @param array<string> $roles
+     * @param array<string> $roles array
      *
      * @return $this
      */
@@ -216,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of setUserGroup
      *
-     * @param string $userGroup
+     * @param string $userGroup string
      *
      * @return void
      */
@@ -239,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of addTask
      *
-     * @param Task $task
+     * @param Task $task Object
      *
      * @return $this
      */
@@ -257,7 +257,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Summary of removeTask
      *
-     * @param Task $task
+     * @param Task $task Object
      *
      * @return $this
      */

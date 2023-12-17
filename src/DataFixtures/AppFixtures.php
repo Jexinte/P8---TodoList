@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
     /**
      * Summary of load
      *
-     * @param ObjectManager $manager
+     * @param ObjectManager $manager Object
      *
      * @return void
      */

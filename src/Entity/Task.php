@@ -79,7 +79,7 @@ class Task
     /**
      * Summary of setCreatedAt
      *
-     * @param \DateTime $createdAt
+     * @param \DateTime $createdAt Object
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class Task
     /**
      * Summary of setTitle
      *
-     * @param string $title
+     * @param string $title string
      *
      * @return void
      */
@@ -123,7 +123,7 @@ class Task
     /**
      * Summary of setContent
      *
-     * @param string $content
+     * @param string $content string
      *
      * @return void
      */
@@ -145,7 +145,7 @@ class Task
     /**
      * Summary of toggle
      *
-     * @param bool $flag
+     * @param bool $flag bool
      *
      * @return void
      */
@@ -167,7 +167,7 @@ class Task
     /**
      * Summary of setUser
      *
-     * @param User|null $user
+     * @param User|null $user Object
      *
      * @return $this
      */

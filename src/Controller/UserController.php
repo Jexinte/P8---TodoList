@@ -26,7 +26,8 @@ class UserController extends AbstractController
 {
     /**
      * Summary of list
-     * @param UserRepository $userRepository
+     *
+     * @param UserRepository $userRepository Object
      *
      * @return Response
      */
@@ -38,9 +39,9 @@ class UserController extends AbstractController
 
     /**
      * Summary of create
-     * @param Request $request
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param UserRepository $userRepository
+     * @param Request $request Object
+     * @param UserPasswordHasherInterface $passwordHasher Object
+     * @param UserRepository $userRepository Object
      *
      * @return RedirectResponse|Response
      */
@@ -70,10 +71,10 @@ class UserController extends AbstractController
     /**
      * Summary of edit
      *
-     * @param User $user
-     * @param Request $request
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param UserRepository $userRepository
+     * @param User $user Object
+     * @param Request $request Object
+     * @param UserPasswordHasherInterface $passwordHasher Object
+     * @param UserRepository $userRepository Object
      *
      * @return RedirectResponse|Response
      */

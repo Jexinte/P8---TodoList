@@ -25,7 +25,7 @@ class TaskController extends AbstractController
     /**
      * Summary of list
      *
-     * @param TaskRepository $taskRepository
+     * @param TaskRepository $taskRepository Object
      *
      * @return Response
      */

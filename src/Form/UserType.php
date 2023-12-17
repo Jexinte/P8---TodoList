@@ -25,8 +25,8 @@ class UserType extends AbstractType
     /**
      * Summary of buildForm
      *
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param FormBuilderInterface $builder Object
+     * @param array $options array
      *
      * @return void
      */

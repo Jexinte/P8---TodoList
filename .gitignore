@@ -36,7 +36,5 @@ phpstan.neon
 
 grumphp.yml
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
+tools
+.php-cs-fixer.cache

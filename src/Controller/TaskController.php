@@ -1,4 +1,13 @@
 <?php
+/**
+ * PHP version 8.
+ *
+ * @category Controller
+ * @package  TaskController
+ * @author   Yokke <mdembelepro@gmail.com>
+ * @license  ISC License
+ * @link     https://github.com/Jexinte/P8---TodoList
+ */
 
 namespace App\Controller;
 
@@ -13,13 +22,27 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends AbstractController
 {
-
+    /**
+     * Summary of list
+     *
+     * @param TaskRepository $taskRepository
+     *
+     * @return Response
+     */
     #[Route(path: '/tasks', name: 'task_list')]
     public function list(TaskRepository $taskRepository): Response
     {
         return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findAll()]);
     }
 
+    /**
+     * Summary of create
+     *
+     * @param Request $request
+     * @param TaskRepository $taskRepository
+     *
+     * @return RedirectResponse|Response
+     */
     #[Route(path: '/tasks/create', name: 'task_create')]
     public function create(Request $request, TaskRepository $taskRepository): RedirectResponse|Response
     {
@@ -41,6 +64,15 @@ class TaskController extends AbstractController
         return $this->render('task/create.html.twig', ['form' => $form]);
     }
 
+    /**
+     * Summary of edit
+     *
+     * @param Task $task
+     * @param Request $request
+     * @param TaskRepository $taskRepository
+     *
+     * @return RedirectResponse|Response
+     */
     #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
     public function edit(Task $task, Request $request, TaskRepository $taskRepository): RedirectResponse|Response
     {
@@ -59,6 +91,13 @@ class TaskController extends AbstractController
         ]));
     }
 
+    /**
+     * Summary of toggleTask
+     * @param Task $task
+     * @param TaskRepository $taskRepository
+     *
+     * @return RedirectResponse
+     */
     #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
     public function toggleTask(Task $task, TaskRepository $taskRepository): RedirectResponse
     {
@@ -71,6 +110,13 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
+    /**
+     * Summary of deleteTask
+     * @param Task $task
+     * @param TaskRepository $taskRepository
+     *
+     * @return RedirectResponse|Response
+     */
     #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTask(Task $task, TaskRepository $taskRepository): RedirectResponse|Response
     {

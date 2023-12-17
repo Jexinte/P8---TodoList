@@ -14,5 +14,5 @@ composer install
 
 5 - Once done push your branch on your fork repository
 
-6 - Make a pull request to the main branch and someone will check out your changes. If they are accepted, your branch will be merged, otherwise comments will be left so that you can make changes until they are accepted.
+6 - Make a pull request from your fork branch to the main branch of the project and someone will check out your changes. If they are accepted, your branch will be merged, otherwise comments will be left so that you can make changes until they are accepted.
 

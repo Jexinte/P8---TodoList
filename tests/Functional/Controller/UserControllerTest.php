@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * PHP version 8.
+ *
+ * @category Test
+ * @package  UserControllerTest
+ * @author   Yokke <mdembelepro@gmail.com>
+ * @license  ISC License
+ * @link     https://github.com/Jexinte/P8---TodoList
+ */
+
 namespace App\Tests\Functional\Controller;
 
 use App\Entity\User;
@@ -17,23 +27,47 @@ class UserControllerTest extends WebTestCase
 
     private KernelBrowser $browser;
 
+    /**
+     * Summary of setUp
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         $this->browser = static::createClient();
     }
 
+    /**
+     * Summary of loginUser
+     *
+     * @param string $username string
+     *
+     * @return void
+     */
     public function loginUser(string $username): void
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
         $this->browser->loginUser($userRepository->findOneBy(['username' => $username]));
     }
 
+    /**
+     * Summary of getUser
+     *
+     * @param string $username string
+     *
+     * @return User
+     */
     public function getUser(string $username): User
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
         return $userRepository->findOneBy(['username' => $username]);
     }
 
+    /**
+     * Summary of testSavingUser
+     *
+     * @return void
+     */
     public function testSavingUser(): void
     {
         $number = rand(1, 2);
@@ -56,6 +90,11 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    /**
+     * Summary of testUpdateOfUserRole
+     *
+     * @return void
+     */
     public function testUpdateOfUserRole(): void
     {
 
@@ -89,6 +128,11 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(self::USERS_PAGE_MAIN_TITLE, $this->browser->getCrawler()->filter('h1')->text());
     }
 
+    /**
+     * Summary of testRedirectToHomePageForUnauthenticatedUsers
+     *
+     * @return void
+     */
     public function testRedirectToHomePageForUnauthenticatedUsers(): void
     {
 

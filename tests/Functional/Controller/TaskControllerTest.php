@@ -27,8 +27,10 @@ class TaskControllerTest extends WebTestCase
     const CREATE_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a été bien été ajoutée.';
     const EDIT_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a bien été modifiée.';
     const FLASH_MESSAGE_OF_A_DELETE_TASK = 'Superbe ! La tâche a bien été supprimée.';
-
     const FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK = 'Oops ! Vous n\'êtes pas autorisé à supprimer cette tâche !.';
+    const TITLE_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un titre.';
+    const CONTENT_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir du contenu.';
+
     private readonly KernelBrowser $browser;
 
     /**
@@ -82,7 +84,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
 
-
         $this->browser->request('POST', '/tasks/create');
 
         $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
@@ -96,6 +97,51 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertEquals(self::CREATE_TASK_FLASH_MESSAGE, $this->browser->getCrawler()->filter('.col-md-12 > .alert-success')->text());
 
+    }
+
+    public function testBlankTitleShouldReturnBlankValidationMessage():void
+    {
+
+        $this->browser->followRedirects();
+
+        $this->loginUser('User1');
+
+        $this->browser->request('GET', '/');
+
+        $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
+
+        $this->browser->request('POST', '/tasks/create');
+
+        $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
+        $form->setValues([
+            'task[title]' => '',
+        ]);
+
+        $this->browser->submit($form);
+
+        $this->assertEquals(self::TITLE_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->text());
+    }
+
+    public function testContentShouldReturnBlankValidationMessage():void
+    {
+
+        $this->browser->followRedirects();
+
+        $this->loginUser('User1');
+
+        $this->browser->request('GET', '/');
+
+        $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
+
+        $this->browser->request('POST', '/tasks/create');
+
+        $form = $this->browser->getCrawler()->selectButton('Ajouter')->form();
+        $form->setValues([
+            'task[content]' => '',
+        ]);
+
+        $this->browser->submit($form);
+        $this->assertEquals(self::CONTENT_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
     }
 
 
@@ -118,7 +164,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->browser->request('GET', '/');
 
-        $this->browser->clickLink(self::CREATE_TASK_BUTTON_NAME);
 
         $this->browser->request('GET', '/tasks');
 
@@ -178,9 +223,9 @@ class TaskControllerTest extends WebTestCase
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
-        $this->loginUser('User1');
+        $this->loginUser('User22');
 
-        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User1')]);
+        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User22')]);
         $task = current($userTasks);
 
         $this->browser->request('GET', '/tasks');

@@ -7,12 +7,21 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-
+    /**
+     * Summary of getUser
+     *
+     * @return User
+     */
     public function getUser(): User
     {
         return new User();
     }
 
+    /**
+     * Summary of testUsernameShouldReturnSameValue
+     *
+     * @return void
+     */
     public function testUsernameShouldReturnSameValue(): void
     {
         $user = new User();
@@ -20,6 +29,11 @@ class UserTest extends TestCase
         $this->assertSame('Test', $user->getUsername());
     }
 
+    /**
+     * Summary of testPasswordShouldReturnSameValue
+     *
+     * @return void
+     */
     public function testPasswordShouldReturnSameValue(): void
     {
         $user = new User();
@@ -27,6 +41,11 @@ class UserTest extends TestCase
         $this->assertSame('0000', $user->getPassword());
     }
 
+    /**
+     * Summary of testEmailShouldReturnSameValue
+     *
+     * @return void
+     */
     public function testEmailShouldReturnSameValue(): void
     {
         $user = new User();
@@ -34,6 +53,11 @@ class UserTest extends TestCase
         $this->assertSame('johndoe@gmail.com', $user->getEmail());
     }
 
+    /**
+     * Summary of testUserGroupShouldReturnSameValue
+     *
+     * @return void
+     */
     public function testUserGroupShouldReturnSameValue(): void
     {
         $user = new User();
@@ -42,6 +66,11 @@ class UserTest extends TestCase
     }
 
 
+    /**
+     * Summary of testRolesShouldBeEmpty
+     *
+     * @return void
+     */
     public function testRolesShouldBeEmpty(): void
     {
         $user = new User();

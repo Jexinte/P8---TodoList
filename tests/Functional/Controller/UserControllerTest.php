@@ -19,13 +19,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
+    public const WELCOME_MESSAGE_HOMEPAGE = 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !';
 
-    const WELCOME_MESSAGE_HOMEPAGE = 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !';
-
-    const USERS_PAGE_MAIN_TITLE = "Liste des utilisateurs";
-    const USER_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un nom d\'utilisateur.';
-    const EMAIL_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir une adresse email.';
-    const EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE = 'Le format de l\'adresse email n\'est pas correcte !';
+    public const USERS_PAGE_MAIN_TITLE = "Liste des utilisateurs";
+    public const USER_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un nom d\'utilisateur.';
+    public const EMAIL_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir une adresse email.';
+    public const EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE = 'Le format de l\'adresse email n\'est pas correcte !';
 
 
     private KernelBrowser $browser;
@@ -107,7 +106,7 @@ class UserControllerTest extends WebTestCase
         ]);
         $this->browser->submit($form);
 
-        $this->assertEquals(self::USER_BLANK_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->text());
+        $this->assertEquals(self::USER_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->text());
     }
     public function testEmailShouldReturnBlankValidationMessage(): void
     {
@@ -121,7 +120,7 @@ class UserControllerTest extends WebTestCase
         ]);
         $this->browser->submit($form);
 
-        $this->assertEquals(self::EMAIL_BLANK_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
+        $this->assertEquals(self::EMAIL_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
     }
     public function testEmailShouldReturnInvalidFormatValidationMessage(): void
     {
@@ -135,7 +134,7 @@ class UserControllerTest extends WebTestCase
         ]);
         $this->browser->submit($form);
 
-        $this->assertEquals(self::EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE,$this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
+        $this->assertEquals(self::EMAIL_INVALID_FORMAT_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
     }
 
 

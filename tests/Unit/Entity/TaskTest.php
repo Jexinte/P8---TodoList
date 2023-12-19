@@ -7,7 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class TaskTest extends TestCase
 {
-
+    /**
+     * Summary of testTitleShouldReturnTheSameValue
+     *
+     * @return void
+     */
     public function testTitleShouldReturnTheSameValue(): void
     {
         $task = new Task();
@@ -15,6 +19,11 @@ class TaskTest extends TestCase
         $this->assertSame('Title for John Doe', $task->getTitle());
     }
 
+    /**
+     * Summary of testContentShouldReturnTheSameValue
+     *
+     * @return void
+     */
     public function testContentShouldReturnTheSameValue(): void
     {
         $task = new Task();
@@ -22,6 +31,11 @@ class TaskTest extends TestCase
         $this->assertSame('Content for John Doe', $task->getContent());
     }
 
+    /**
+     * Summary of testToggleShouldReturnTheSameValue
+     *
+     * @return void
+     */
     public function testToggleShouldReturnTheSameValue(): void
     {
         $task = new Task();

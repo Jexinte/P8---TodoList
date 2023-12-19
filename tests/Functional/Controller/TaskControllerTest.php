@@ -20,16 +20,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskControllerTest extends WebTestCase
 {
-
-
-    const CREATE_TASK_BUTTON_NAME = 'Créer une nouvelle tâche';
-    const TASKS_BUTTON_NAME = 'Consulter la liste des tâches à faire';
-    const CREATE_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a été bien été ajoutée.';
-    const EDIT_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a bien été modifiée.';
-    const FLASH_MESSAGE_OF_A_DELETE_TASK = 'Superbe ! La tâche a bien été supprimée.';
-    const FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK = 'Oops ! Vous n\'êtes pas autorisé à supprimer cette tâche !.';
-    const TITLE_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un titre.';
-    const CONTENT_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir du contenu.';
+    public const CREATE_TASK_BUTTON_NAME = 'Créer une nouvelle tâche';
+    public const TASKS_BUTTON_NAME = 'Consulter la liste des tâches à faire';
+    public const CREATE_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a été bien été ajoutée.';
+    public const EDIT_TASK_FLASH_MESSAGE = 'Superbe ! La tâche a bien été modifiée.';
+    public const FLASH_MESSAGE_OF_A_DELETE_TASK = 'Superbe ! La tâche a bien été supprimée.';
+    public const FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK = 'Oops ! Vous n\'êtes pas autorisé à supprimer cette tâche !.';
+    public const TITLE_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir un titre.';
+    public const CONTENT_BLANK_VALIDATION_MESSAGE = 'Vous devez saisir du contenu.';
 
     private readonly KernelBrowser $browser;
 
@@ -50,7 +48,7 @@ class TaskControllerTest extends WebTestCase
      *
      * @return void
      */
-    public function loginUser(string $username):void
+    public function loginUser(string $username): void
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
         $this->browser->loginUser($userRepository->findOneBy(['username' => $username]));
@@ -99,7 +97,7 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testBlankTitleShouldReturnBlankValidationMessage():void
+    public function testBlankTitleShouldReturnBlankValidationMessage(): void
     {
 
         $this->browser->followRedirects();
@@ -122,7 +120,7 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals(self::TITLE_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->text());
     }
 
-    public function testContentShouldReturnBlankValidationMessage():void
+    public function testContentShouldReturnBlankValidationMessage(): void
     {
 
         $this->browser->followRedirects();
@@ -172,7 +170,7 @@ class TaskControllerTest extends WebTestCase
 
         foreach ($tasks as $task) {
             preg_match_all('/créé\spar\s(.*?)\n/', $task->nodeValue, $matches);
-            $anonymousTasksOnClient = array_filter(next($matches), fn($value) => $value == "Anonyme");
+            $anonymousTasksOnClient = array_filter(next($matches), fn ($value) => $value == "Anonyme");
         }
         $this->assertCount(count($anonymousTasksOnClient), $anonymousTasksOnDb);
 
@@ -259,7 +257,7 @@ class TaskControllerTest extends WebTestCase
         $this->browser->request('DELETE', "/tasks/" . $task->getId() . "/delete");
 
         $this->assertResponseStatusCodeSame(400);
-        $this->assertEquals(self::FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK,$this->browser->getCrawler()->filter('.alert-danger')->text());
+        $this->assertEquals(self::FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK, $this->browser->getCrawler()->filter('.alert-danger')->text());
 
     }
 

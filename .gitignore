@@ -35,6 +35,7 @@ phpstan.neon
 ###< symfony/framework-bundle ###
 
 grumphp.yml
+tools
+.php-cs-fixer.cache
+public/test-coverage
 
-
-/public/test-coverage

@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * PHP version 8.
+ *
+ * @category Test
+ * @package  TaskControllerTest
+ * @author   Yokke <mdembelepro@gmail.com>
+ * @license  ISC License
+ * @link     https://github.com/Jexinte/P8---TodoList
+ */
+
 namespace App\Tests\Functional\Controller;
 
 use App\Entity\User;
@@ -23,22 +33,47 @@ class TaskControllerTest extends WebTestCase
 
     private readonly KernelBrowser $browser;
 
+    /**
+     * Summary of setUp
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         $this->browser = static::createClient();
     }
 
+    /**
+     * Summary of loginUser
+     *
+     * @param string $username string
+     *
+     * @return void
+     */
     public function loginUser(string $username):void
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
         $this->browser->loginUser($userRepository->findOneBy(['username' => $username]));
     }
 
+    /**
+     * Summary of getUser
+     *
+     * @param string $username string
+     *
+     * @return User
+     */
     public function getUser(string $username): User
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
         return $userRepository->findOneBy(['username' => $username]);
     }
+
+    /**
+     * Summary of testCreateTask
+     *
+     * @return void
+     */
     public function testCreateTask(): void
     {
         $this->browser->followRedirects();
@@ -110,6 +145,11 @@ class TaskControllerTest extends WebTestCase
     }
 
 
+    /**
+     * Summary of testUnauthenticatedTaskUserShouldBeAnonymous
+     *
+     * @return void
+     */
     public function testUnauthenticatedTaskUserShouldBeAnonymous(): void
     {
 
@@ -138,6 +178,11 @@ class TaskControllerTest extends WebTestCase
 
     }
 
+    /**
+     * Summary of testEditTask
+     *
+     * @return void
+     */
     public function testEditTask(): void
     {
 
@@ -166,6 +211,11 @@ class TaskControllerTest extends WebTestCase
 
     }
 
+    /**
+     * Summary of testDeleteTaskByHisCreator
+     *
+     * @return void
+     */
     public function testDeleteTaskByHisCreator(): void
     {
 
@@ -188,6 +238,11 @@ class TaskControllerTest extends WebTestCase
     }
 
 
+    /**
+     * Summary of testPreventNormalUserToDeleteAnonymousTask
+     *
+     * @return void
+     */
     public function testPreventNormalUserToDeleteAnonymousTask(): void
     {
         $this->browser->followRedirects();

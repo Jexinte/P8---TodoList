@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * PHP version 8.
+ *
+ * @category Entity
+ * @package  User
+ * @author   Yokke <mdembelepro@gmail.com>
+ * @license  ISC License
+ * @link     https://github.com/Jexinte/P8---TodoList
+ */
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -51,18 +61,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class)]
     private Collection $tasks;
 
+    /**
+     * Summary of __construct
+     */
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
     }
 
 
+    /**
+     * Summary of getId
+     *
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * Summary of getUsername
+     *
      * @return string
      */
     public function getUsername(): string
@@ -70,13 +90,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
+    /**
+     * Summary of setUsername
+     *
+     * @param string $username string
+     *
+     * @return void
+     */
     public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
+
     /**
-     * @codeCoverageIgnore
+     * Summary of getSalt
+     *
+     * @return string|null
      */
     public function getSalt(): ?string
     {
@@ -84,38 +114,75 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * Summary of setPassword
+     *
+     * @param string $password string
+     *
+     * @return void
+     */
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
+    /**
+     * Summary of getEmail
+     *
+     * @return string
+     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
+    /**
+     * Summary of setEmail
+     *
+     * @param string $email string
+     *
+     * @return void
+     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
+    /**
+     * Summary of getRoles
+     *
+     * @return string[]
+     */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
+
     /**
-     * @codeCoverageIgnore
+     * Summary of eraseCredentials
+     *
+     * @return void
      */
     public function eraseCredentials(): void
     {
     }
 
+    /**
+     * Summary of getUserIdentifier
+     *
+     * @return string
+     */
     public function getUserIdentifier(): string
     {
         return $this->username;
     }
 
+    /**
+     * Summary of getPassword
+     *
+     * @return string
+     */
     public function getPassword(): string
     {
         return $this->password;
@@ -123,7 +190,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /**
-     * @param array<string> $roles
+     * Summary of setRoles
+     *
+     * @param array<string> $roles array
+     *
      * @return $this
      */
     public function setRoles(array $roles): self
@@ -133,20 +203,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Summary of getUserGroup
+     *
+     * @return string
+     */
     public function getUserGroup(): string
     {
         return $this->userGroup;
     }
 
+    /**
+     * Summary of setUserGroup
+     *
+     * @param string $userGroup string
+     *
+     * @return void
+     */
     public function setUserGroup(string $userGroup): void
     {
         $this->userGroup = $userGroup;
     }
 
     /**
-     * @codeCoverageIgnore
-     */
-    /**
+     * Summary of getTasks
+     *
      * @return Collection<int, Task>
      */
     public function getTasks(): Collection
@@ -154,8 +235,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->tasks;
     }
 
+
     /**
-     * @codeCoverageIgnore
+     * Summary of addTask
+     *
+     * @param Task $task Object
+     *
+     * @return $this
      */
     public function addTask(Task $task): static
     {
@@ -167,8 +253,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
-     * @codeCoverageIgnore
+     * Summary of removeTask
+     *
+     * @param Task $task Object
+     *
+     * @return $this
      */
     public function removeTask(Task $task): static
     {

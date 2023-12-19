@@ -50,6 +50,4 @@ class TaskRepository extends ServiceEntityRepository
     {
         return parent::getEntityManager();
     }
-
-
 }

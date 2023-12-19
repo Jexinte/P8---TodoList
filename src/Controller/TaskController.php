@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP version 8.
  *
@@ -38,7 +39,7 @@ class TaskController extends AbstractController
     /**
      * Summary of create
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TaskRepository $taskRepository
      *
      * @return RedirectResponse|Response
@@ -67,8 +68,8 @@ class TaskController extends AbstractController
     /**
      * Summary of edit
      *
-     * @param Task $task
-     * @param Request $request
+     * @param Task           $task
+     * @param Request        $request
      * @param TaskRepository $taskRepository
      *
      * @return RedirectResponse|Response
@@ -85,15 +86,21 @@ class TaskController extends AbstractController
             $this->addFlash('success', 'La tâche a bien été modifiée.');
             return $this->redirectToRoute('task_list');
         }
-        return new Response($this->render('task/edit.html.twig', [
-            'form' => $form,
-            'task' => $task,
-        ]));
+        return new Response(
+            $this->render(
+                'task/edit.html.twig',
+                [
+                'form' => $form,
+                'task' => $task,
+                ]
+            )
+        );
     }
 
     /**
      * Summary of toggleTask
-     * @param Task $task
+     *
+     * @param Task           $task
      * @param TaskRepository $taskRepository
      *
      * @return RedirectResponse
@@ -112,7 +119,8 @@ class TaskController extends AbstractController
 
     /**
      * Summary of deleteTask
-     * @param Task $task
+     *
+     * @param Task           $task
      * @param TaskRepository $taskRepository
      *
      * @return RedirectResponse|Response
@@ -123,7 +131,7 @@ class TaskController extends AbstractController
         $user = $this->getUser() ?: '';
         $taskUserStatus = $task->getUser() ?: '';
         switch (true) {
-            case !empty($user) && !empty($taskUserStatus) :
+            case !empty($user) && !empty($taskUserStatus):
                 if ($user->getUserIdentifier() == $task->getUser()->getUserIdentifier()) {
                     $taskRepository->getEntityManager()->remove($task);
                     $taskRepository->getEntityManager()->flush();
@@ -141,6 +149,9 @@ class TaskController extends AbstractController
                 $this->addFlash('error', 'Vous n\'êtes pas autorisé à supprimer cette tâche !.');
         }
 
-        return new Response($this->render('/task/list.html.twig', ['tasks' => $taskRepository->findAll()]), Response::HTTP_BAD_REQUEST);
+        return new Response(
+            $this->render('/task/list.html.twig', ['tasks' => $taskRepository->findAll()]),
+            Response::HTTP_BAD_REQUEST
+        );
     }
 }

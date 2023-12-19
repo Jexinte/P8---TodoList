@@ -52,6 +52,8 @@
     },
     "scripts": {
         "analyse" : "vendor/bin/phpstan analyse src",
+        "cs" : "phpcs --standard=PSR12",
+        "cbf" : "phpcbf --standard=PSR12",
         "post-install-cmd": [
             "@symfony-scripts"
         ],

@@ -50,6 +50,4 @@ class UserRepository extends ServiceEntityRepository
     {
         return parent::getEntityManager();
     }
-
-
 }

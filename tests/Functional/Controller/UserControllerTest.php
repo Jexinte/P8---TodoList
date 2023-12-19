@@ -192,8 +192,5 @@ class UserControllerTest extends WebTestCase
         $this->browser->request('GET', '/users');
 
         $this->assertSame(self::WELCOME_MESSAGE_HOMEPAGE, $this->browser->getCrawler()->filter('h1')->text());
-
     }
-
-
 }

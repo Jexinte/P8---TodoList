@@ -76,5 +76,4 @@ class UserTest extends TestCase
         $user = new User();
         $this->assertEmpty($user->getRoles());
     }
-
 }

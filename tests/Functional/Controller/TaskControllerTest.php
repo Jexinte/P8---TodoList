@@ -93,7 +93,8 @@ class TaskControllerTest extends WebTestCase
         $this->browser->submit($form);
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(self::CREATE_TASK_FLASH_MESSAGE, $this->browser->getCrawler()->filter('.col-md-12 > .alert-success')->text());
+        $this->assertEquals(self::CREATE_TASK_FLASH_MESSAGE,
+            $this->browser->getCrawler()->filter('.col-md-12 > .alert-success')->text());
 
     }
 

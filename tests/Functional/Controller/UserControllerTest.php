@@ -93,6 +93,11 @@ class UserControllerTest extends WebTestCase
     }
 
 
+    /**
+     * Summary of testUsernameShouldReturnBlankValidationMessage
+     *
+     * @return void
+     */
     public function testUsernameShouldReturnBlankValidationMessage(): void
     {
 
@@ -108,6 +113,12 @@ class UserControllerTest extends WebTestCase
 
         $this->assertEquals(self::USER_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->text());
     }
+
+    /**
+     * Summary of testEmailShouldReturnBlankValidationMessage
+     *
+     * @return void
+     */
     public function testEmailShouldReturnBlankValidationMessage(): void
     {
         $this->browser->followRedirects();
@@ -122,6 +133,12 @@ class UserControllerTest extends WebTestCase
 
         $this->assertEquals(self::EMAIL_BLANK_VALIDATION_MESSAGE, $this->browser->getCrawler()->filter('.invalid-feedback')->eq(1)->text());
     }
+
+    /**
+     * Summary of testEmailShouldReturnInvalidFormatValidationMessage
+     *
+     * @return void
+     */
     public function testEmailShouldReturnInvalidFormatValidationMessage(): void
     {
         $this->browser->followRedirects();

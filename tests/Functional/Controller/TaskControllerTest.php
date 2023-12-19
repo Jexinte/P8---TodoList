@@ -223,9 +223,9 @@ class TaskControllerTest extends WebTestCase
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
-        $this->loginUser('User22');
+        $this->loginUser('User25');
 
-        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User22')]);
+        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User25')]);
         $task = current($userTasks);
 
         $this->browser->request('GET', '/tasks');

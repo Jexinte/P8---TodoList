@@ -38,4 +38,3 @@ grumphp.yml
 tools
 .php-cs-fixer.cache
 public/test-coverage
-

@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 class TaskTest extends TestCase
 {
 
-
     public function testTitleShouldReturnTheSameValue(): void
     {
         $task = new Task();
@@ -31,6 +30,4 @@ class TaskTest extends TestCase
         $task->toggle($boolean);
         $this->assertIsBool($task->isDone());
     }
-
-
 }

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * PHP version 8.
+ *
+ * @category Repository
+ * @package  TaskRepository
+ * @author   Yokke <mdembelepro@gmail.com>
+ * @license  ISC License
+ * @link     https://github.com/Jexinte/P8---TodoList
+ */
 
 namespace App\Repository;
 
@@ -22,7 +31,9 @@ use Doctrine\Persistence\ManagerRegistry;
 class TaskRepository extends ServiceEntityRepository
 {
     /**
-     * @codeCoverageIgnore
+     * Summary of __construct
+     *
+     * @param ManagerRegistry $registry Object
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -31,7 +42,9 @@ class TaskRepository extends ServiceEntityRepository
 
 
     /**
-     * @codeCoverageIgnore
+     * Summary of getEntityManager
+     *
+     * @return EntityManagerInterface
      */
     public function getEntityManager(): EntityManagerInterface
     {

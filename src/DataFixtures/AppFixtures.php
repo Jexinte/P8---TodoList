@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setUsername("User" . $i + 1);
             $user->setPassword(password_hash('0000', PASSWORD_BCRYPT));
-            $user->setEmail(strtolower($user->getUsername()) .'@gmail.com');
+            $user->setEmail(strtolower($user->getUsername()) . '@gmail.com');
             $i < 5 ? $user->setUserGroup('ROLE_ADMIN') : $user->setUserGroup('ROLE_USER');
             $user->setRoles([$user->getUserGroup()]);
             $users[] = $user;

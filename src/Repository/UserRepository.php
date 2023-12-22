@@ -46,7 +46,7 @@ class UserRepository extends ServiceEntityRepository
      *
      * @return EntityManagerInterface
      */
-    protected function getEntityManager(): EntityManagerInterface
+    public function getEntityManager(): EntityManagerInterface
     {
         return parent::getEntityManager();
     }

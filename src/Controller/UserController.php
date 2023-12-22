@@ -39,9 +39,10 @@ class UserController extends AbstractController
 
     /**
      * Summary of create
-     * @param Request $request Object
+     *
+     * @param Request                     $request        Object
      * @param UserPasswordHasherInterface $passwordHasher Object
-     * @param UserRepository $userRepository Object
+     * @param UserRepository              $userRepository Object
      *
      * @return RedirectResponse|Response
      */
@@ -74,10 +75,10 @@ class UserController extends AbstractController
     /**
      * Summary of edit
      *
-     * @param User $user Object
-     * @param Request $request Object
+     * @param User                        $user           Object
+     * @param Request                     $request        Object
      * @param UserPasswordHasherInterface $passwordHasher Object
-     * @param UserRepository $userRepository Object
+     * @param UserRepository              $userRepository Object
      *
      * @return RedirectResponse|Response
      */

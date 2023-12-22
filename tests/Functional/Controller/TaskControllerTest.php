@@ -93,9 +93,10 @@ class TaskControllerTest extends WebTestCase
         $this->browser->submit($form);
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(self::CREATE_TASK_FLASH_MESSAGE,
-            $this->browser->getCrawler()->filter('.col-md-12 > .alert-success')->text());
-
+        $this->assertEquals(
+            self::CREATE_TASK_FLASH_MESSAGE,
+            $this->browser->getCrawler()->filter('.col-md-12 > .alert-success')->text()
+        );
     }
 
     public function testBlankTitleShouldReturnBlankValidationMessage(): void
@@ -174,7 +175,6 @@ class TaskControllerTest extends WebTestCase
             $anonymousTasksOnClient = array_filter(next($matches), fn ($value) => $value == "Anonyme");
         }
         $this->assertCount(count($anonymousTasksOnClient), $anonymousTasksOnDb);
-
     }
 
     /**
@@ -207,7 +207,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertEquals(self::EDIT_TASK_FLASH_MESSAGE, $this->browser->getCrawler()->filter('.alert-success')->text());
-
     }
 
     /**
@@ -233,7 +232,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSame(self::FLASH_MESSAGE_OF_A_DELETE_TASK, $this->browser->getCrawler()->filter('.alert-success')->text());
-
     }
 
 
@@ -259,7 +257,5 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(400);
         $this->assertEquals(self::FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK, $this->browser->getCrawler()->filter('.alert-danger')->text());
-
     }
-
 }

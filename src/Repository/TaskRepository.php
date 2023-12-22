@@ -46,7 +46,7 @@ class TaskRepository extends ServiceEntityRepository
      *
      * @return EntityManagerInterface
      */
-    public function getEntityManager(): EntityManagerInterface
+    protected function getEntityManager(): EntityManagerInterface
     {
         return parent::getEntityManager();
     }

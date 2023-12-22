@@ -86,6 +86,7 @@ class TaskController extends AbstractController
             $this->addFlash('success', 'La tâche a bien été modifiée.');
             return $this->redirectToRoute('task_list');
         }
+        
         return new Response(
             $this->render(
                 'task/edit.html.twig',
@@ -138,6 +139,7 @@ class TaskController extends AbstractController
                     $this->addFlash('success', 'La tâche a bien été supprimée.');
                     return $this->redirectToRoute('task_list');
                 }
+                
                 $this->addFlash('error', 'Vous n\'êtes pas autorisé à supprimer cette tâche !.');
                 break;
             case empty($taskUserStatus) && current($user->getRoles()) == "ROLE_ADMIN":

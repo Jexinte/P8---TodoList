@@ -27,6 +27,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
             (require $path)($container->withPath($path), $this);
         }
     }
+    
     /**
      * @codeCoverageIgnore
      */
@@ -41,6 +42,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
             (require $path)($routes->withPath($path), $this);
         }
     }
+    
     /**
      * @codeCoverageIgnore
      */

@@ -298,9 +298,9 @@ class TaskControllerTest extends WebTestCase
         foreach (current($ids) as $id) {
             preg_match('/\d+/', $id, $matches);
             if (is_object($taskRepository->findOneBy(['id' => current($matches),'user' => null]))) {
-                $arr[] = "/tasks/" . current($matches) . "/delete";
+                $arr[] = "/tasks/" .current($matches). "/delete";
             }
-            if (count($arr) == 1) {
+            if (count($arr) === 1) {
                 break;
             }
         }
@@ -327,7 +327,7 @@ class TaskControllerTest extends WebTestCase
         $uriTaskToToggle = $this->getTaskToToggle($matches);
         $this->browser->request('GET', current($uriTaskToToggle));
         $this->assertResponseIsSuccessful();
-        $this->assertEquals('Superbe ! La tâche ' . next($uriTaskToToggle) . ' a bien été marquée comme faite.', $this->browser->getCrawler()->filter('.alert-success')->text());
+        $this->assertEquals('Superbe ! La tâche '.next($uriTaskToToggle) .' a bien été marquée comme faite.', $this->browser->getCrawler()->filter('.alert-success')->text());
     }
 
     /**
@@ -344,10 +344,10 @@ class TaskControllerTest extends WebTestCase
         foreach (current($ids) as $id) {
             preg_match('/\d+/', $id, $matches);
             if (is_object($taskRepository->findOneBy(['id' => current($matches),'isDone' => false]))) {
-                $arr[] = "/tasks/" . current($matches) . "/toggle";
-                $arr[] =  $taskRepository->findOneBy(['id' => current($matches),'isDone' => false])->getTitle();
+                $arr[] = "/tasks/" .current($matches). "/toggle";
+                $arr[] = $taskRepository->findOneBy(['id' => current($matches),'isDone' => false])->getTitle();
             }
-            if (count($arr) == 2) {
+            if (count($arr) === 2) {
                 break;
             }
         }

@@ -297,7 +297,7 @@ class TaskControllerTest extends WebTestCase
         $arr = [];
         foreach (current($ids) as $id) {
             preg_match('/\d+/', $id, $matches);
-            if (is_object($taskRepository->findOneBy(['id' => current($matches),'user' => null]))) {
+            if (is_null($taskRepository->findOneBy(['id' => current($matches)])->getUser())) {
                 $arr[] = "/tasks/".current($matches)."/delete";
             }
             if (count($arr) === 1) {
@@ -343,7 +343,7 @@ class TaskControllerTest extends WebTestCase
         $arr = [];
         foreach (current($ids) as $id) {
             preg_match('/\d+/', $id, $matches);
-            if (is_object($taskRepository->findOneBy(['id' => current($matches),'isDone' => false]))) {
+            if (!$taskRepository->findOneBy(['id' => current($matches)])->isDone()) {
                 $arr[] = "/tasks/".current($matches)."/toggle";
                 $arr[] = $taskRepository->findOneBy(['id' => current($matches),'isDone' => false])->getTitle();
             }

@@ -44,6 +44,6 @@ So to launch a single test use this command for example to register a user:
 ```
 php bin/phpunit --filter=testSavingUser
 ```
-# Database & User
+# Database
 
 Create a database called `todolist` in phpmyadmin and insert the `todolist.sql` file store in config folder

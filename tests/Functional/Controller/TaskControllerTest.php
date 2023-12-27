@@ -221,9 +221,9 @@ class TaskControllerTest extends WebTestCase
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
 
-        $this->loginUser('User25');
+        $this->loginUser('User27');
 
-        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User25')]);
+        $userTasks = $taskRepository->findBy(['user' => $this->getUser('User27')]);
         $task = current($userTasks);
 
         $this->browser->request('GET', '/tasks');
@@ -257,5 +257,100 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(400);
         $this->assertEquals(self::FLASH_MESSAGE_OF_UNAUTHORIZED_ATTEMPT_TO_DELETE_TASK, $this->browser->getCrawler()->filter('.alert-danger')->text());
+    }
+
+    /**
+     * Summary of testDeletionOfAnonymousTaskByAdmin
+     *
+     * @return void
+     */
+    public function testDeletionOfAnonymousTaskByAdmin(): void
+    {
+        $this->browser->followRedirects();
+
+        $this->loginUser('User1');
+
+        $this->browser->request('GET', '/tasks');
+
+        $tasks = $this->browser->getCrawler()->outerHtml();
+
+        preg_match_all('/\/tasks\/\d+\/delete/', $tasks, $matches);
+
+        $uriAnonymousTask = $this->getAnAnonymousTask($matches);
+
+        $this->browser->request('DELETE', $uriAnonymousTask);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals(self::FLASH_MESSAGE_OF_A_DELETE_TASK, $this->browser->getCrawler()->filter('.alert-success')->text());
+    }
+
+    /**
+     * Summary of getAnAnonymousTask
+     *
+     * @param array $ids array
+     *
+     * @return string
+     */
+    public function getAnAnonymousTask(array $ids): string
+    {
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $arr = [];
+        foreach (current($ids) as $id) {
+            preg_match('/\d+/', $id, $matches);
+            if (is_null($taskRepository->findOneBy(['id' => current($matches)])->getUser())) {
+                $arr[] = "/tasks/".current($matches)."/delete";
+            }
+            if (count($arr) === 1) {
+                break;
+            }
+        }
+        return implode('', $arr);
+    }
+
+    /**
+     * Summary of testToggleOfATask
+     *
+     * @return void
+     */
+    public function testToggleOfATask(): void
+    {
+        $this->browser->followRedirects();
+
+        $this->loginUser('User1');
+
+        $this->browser->request('GET', '/tasks');
+
+        $tasks = $this->browser->getCrawler()->outerHtml();
+
+        preg_match_all('/\/tasks\/\d+\/toggle/', $tasks, $matches);
+
+        $uriTaskToToggle = $this->getTaskToToggle($matches);
+        $this->browser->request('GET', current($uriTaskToToggle));
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals('Superbe ! La tâche '.next($uriTaskToToggle).' a bien été marquée comme faite.', $this->browser->getCrawler()->filter('.alert-success')->text());
+    }
+
+    /**
+     * Summary of getTaskToToggle
+     *
+     * @param array $ids array
+     *
+     * @return array
+     */
+    public function getTaskToToggle(array $ids): array
+    {
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $arr = [];
+        foreach (current($ids) as $id) {
+            preg_match('/\d+/', $id, $matches);
+            if (!$taskRepository->findOneBy(['id' => current($matches)])->isDone()) {
+                $arr[] = "/tasks/".current($matches)."/toggle";
+                $arr[] = $taskRepository->findOneBy(['id' => current($matches),'isDone' => false])->getTitle();
+            }
+            if (count($arr) === 2) {
+                break;
+            }
+        }
+        return $arr;
     }
 }
